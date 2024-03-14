@@ -1,13 +1,15 @@
 <script setup>
 
-
+const sayCoucou = () => {
+  console.log('coucou');
+}
 </script>
 
 <template>
   <body>
     <img src="/border.png" class="border">
     <header>
-      <h1>Welcome in the forest WebSite</h1>
+      <h1 v-on:scroll="sayCoucou">Welcome in the forest WebSite</h1>
     </header>
     <div class="target">1</div>
     <div class="target">1</div>
@@ -62,6 +64,7 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
+  background: black;
 }
 
 header {
@@ -83,7 +86,7 @@ header h1 {
 
 .border {
   width: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   user-select: none;
