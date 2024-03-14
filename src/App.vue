@@ -1,15 +1,28 @@
 <script setup>
 
-const sayCoucou = () => {
-  console.log('coucou');
-}
+window.addEventListener('scroll', () => {
+  console.log(window.scrollY);
+  const border = document.getElementById('border');
+  if (window.scrollY < 1000) {
+    border.style.width = `calc(100vh - ${window.scrollY}px)`;
+    border.style.opacity = 1 -  window.scrollY / 1000;
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const audio = document.querySelector('audio');
+  audio.play();
+  audio.volume = 0.1;
+});
+
 </script>
 
 <template>
   <body>
-    <img src="/border.png" class="border">
+    <audio src="/public/bgMusic.mp3" loop></audio>
+    <img src="/border.png" class="border" id="border">
     <header>
-      <h1 v-on:scroll="sayCoucou">Welcome in the forest WebSite</h1>
+      <h1>Welcome in the forest WebSite</h1>
     </header>
     <div class="target">1</div>
     <div class="target">1</div>
