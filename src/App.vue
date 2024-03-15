@@ -1,29 +1,38 @@
 <script setup>
+import ForestCard from "./components/ForestCard.vue";
+</script>
 
-window.addEventListener('scroll', () => {
+<script>
+window.addEventListener("scroll", () => {
   console.log(window.scrollY);
-  const border = document.getElementById('border');
+  const border = document.getElementById("border");
   if (window.scrollY < 1000) {
     border.style.width = `calc(100vh - ${window.scrollY}px)`;
-    border.style.opacity = 1 -  window.scrollY / 1000;
+    border.style.opacity = 1 - window.scrollY / 1000;
   }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const audio = document.querySelector('audio');
+document.addEventListener("DOMContentLoaded", () => {
+  const audio = document.querySelector("audio");
   audio.play();
   audio.volume = 0.1;
 });
-
 </script>
 
 <template>
   <body>
-    <audio src="/public/bgMusic.mp3" loop></audio>
-    <img src="/border.png" class="border" id="border">
+    <audio src="/bgMusic.mp3" loop></audio>
+    <img
+      src="/border.png"
+      class="border"
+      id="border"
+      ondragstart="return false"
+      ondrop="return false"
+    />
     <header>
       <h1>Welcome in the forest WebSite</h1>
     </header>
+    <ForestCard title="test" imageLink="/amazonie.jpg"/>
     <div class="target">1</div>
     <div class="target">1</div>
     <div class="target">1</div>
@@ -67,13 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
 </template>
 
 <style>
-
 @font-face {
   font-family: mainFont;
   src: url(/font/GrowWestRegular-vm1qA.ttf);
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
