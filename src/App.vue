@@ -1,22 +1,8 @@
 <script setup>
 import ForestCard from "./components/ForestCard.vue";
-</script>
-
-<script>
-window.addEventListener("scroll", () => {
-  console.log(window.scrollY);
-  const border = document.getElementById("border");
-  if (window.scrollY < 1000) {
-    border.style.width = `calc(100vh - ${window.scrollY}px)`;
-    border.style.opacity = 1 - window.scrollY / 1000;
-  }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const audio = document.querySelector("audio");
-  audio.play();
-  audio.volume = 0.1;
-});
+import { ref } from "vue";
+import axios from "axios";
+import { createApp } from "vue";
 </script>
 
 <template>
@@ -32,48 +18,61 @@ document.addEventListener("DOMContentLoaded", () => {
     <header>
       <h1>Welcome in the forest WebSite</h1>
     </header>
-    <ForestCard title="test" imageLink="/amazonie.jpg"/>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
-    <div class="target">1</div>
+    <ForestCard title="Amazonie" imageLink="/amazonie.jpg" />
+
+    <div class="target" id="apiResult" v-for="apiResult in result">
+      <p>{{ apiResult.title }}</p></br>
+      <p>{{ apiResult.excerpt }}</p>
+    </div>
   </body>
 </template>
+
+<script>
+window.addEventListener("scroll", () => {
+  const border = document.getElementById("border");
+  if (window.scrollY < 1000) {
+    border.style.width = `calc(100vh - ${window.scrollY}px)`;
+    border.style.opacity = 1 - window.scrollY / 1000;
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const audio = document.querySelector("audio");
+  // audio.play();
+  // audio.volume = 0.1;
+});
+
+export default {
+  data() {
+    return {
+      result: null,
+    };
+  },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    async fetchData() {
+      axios
+        .get("http://localhost:3000/api/books", {
+          headers: {
+            'access-control-allow-origin': '*',
+            Authorization:
+              "Bearer " +
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxMDI0NDMxNCwiZXhwIjoxNzQxODAxOTE0fQ.-pXDk9W5yDdpirheK-9lhZtjXDkcAEj_EYyVWR9Z1L4",
+          },
+        })
+        .then((response) => {
+          this.result = response.data.data.rows;
+          console.log(response.data.data.rows);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+};
+</script>
 
 <style>
 @font-face {
@@ -115,14 +114,13 @@ header h1 {
 }
 
 .target {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 300px;
   margin: 300px auto 500px auto;
-  display: flex;
-  align-items: center;
   background-color: #43b883;
   border-radius: 10px;
   font-weight: bold;
-  text-align: center;
+  display: grid;
+  align-items: center;
 }
 </style>

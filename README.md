@@ -1,6 +1,10 @@
-# first-website
+# First-website
 
-This template should help get you started developing with Vue 3 in Vite.
+It's my first Vue JS application
+
+# Utils
+## API :
+- [Github Link](https://github.com/ThomNardou/Book-Passion_API)
 
 ## Recommended IDE Setup
 
