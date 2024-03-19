@@ -8,15 +8,14 @@ import { createApp } from "vue";
 <template>
   <body>
     <audio src="/bgMusic.mp3" loop></audio>
-    <img
-      src="/border.png"
-      class="border"
-      id="border"
-      ondragstart="return false"
-      ondrop="return false"
-    />
     <header>
-      <h1>Welcome in the forest WebSite</h1>
+      <img
+        src="/door.png"
+        class="door"
+        id="door"
+        ondragstart="return false"
+        ondrop="return false"
+      />
     </header>
     <ForestCard title="Amazonie" imageLink="/amazonie.jpg" />
 
@@ -29,10 +28,25 @@ import { createApp } from "vue";
 
 <script>
 window.addEventListener("scroll", () => {
-  const border = document.getElementById("border");
-  if (window.scrollY < 1000) {
-    border.style.width = `calc(100vh - ${window.scrollY}px)`;
-    border.style.opacity = 1 - window.scrollY / 1000;
+  const border = document.getElementById("door");
+  const header = document.querySelector("header");
+
+  let width = border.style.width = `calc(75vh + ${window.scrollY}px * 10)`;
+
+  border.style.marginLeft = `calc(${width} / -2)`;
+  border.style.opacity = 1 - window.scrollY / 1000;
+  
+  let translateY = window.scrollY * 4;
+
+  border.style.transform = `translateY(-${translateY}px)`;
+
+
+  if (window.scrollY <= 300) {
+    header.style.filter = "grayscale(100%)";
+  }
+  else {
+    header.style.filter = "grayscale(0%)";
+    header.style.transition = ".10s";
   }
 });
 
@@ -86,31 +100,31 @@ body {
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
   background: black;
+  overflow-x: hidden;
 }
 
 header {
-  height: calc(100vh + 100px);
-  background-image: url("/background.jpg");
+  height: 300vh;
+  background-image: url("/wallpaper_one.jpg");
   background-size: cover;
-  background: linear-gradient(url("/background.jpg"), 0);
+  background-position: center;
+  background-attachment: fixed;
+  overflow: hidden;
 }
 
-header h1 {
-  font-family: mainFont;
-  font-size: 60px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  color: white;
-  user-select: none;
+header:not(:first-child) {
+  filter: grayscale(100%);
 }
 
-.border {
-  width: 100vh;
+.door {
+  width: 75vh;
   position: fixed;
-  top: 0;
-  left: 0;
+  top: calc(100vh - 75vh);
+  left: 50%;
+  right: 50%;
+  margin-left: -37.5vh;
   user-select: none;
+  z-index: 1;
 }
 
 .target {
