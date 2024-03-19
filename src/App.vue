@@ -9,6 +9,8 @@ import { createApp } from "vue";
   <body>
     <audio src="/bgMusic.mp3" loop></audio>
     <header>
+      <h1>Coucou</h1>
+    </header>
       <img
         src="/door.png"
         class="door"
@@ -16,7 +18,6 @@ import { createApp } from "vue";
         ondragstart="return false"
         ondrop="return false"
       />
-    </header>
     <ForestCard title="Amazonie" imageLink="/amazonie.jpg" />
 
     <div class="target" id="apiResult" v-for="apiResult in result">
@@ -104,12 +105,16 @@ body {
 }
 
 header {
-  height: 300vh;
+  padding-top: 100px;
+  height: 200vh;
   background-image: url("/wallpaper_one.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 header:not(:first-child) {
