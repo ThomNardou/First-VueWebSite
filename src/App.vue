@@ -28,6 +28,17 @@ import { createApp } from "vue";
 </template>
 
 <script>
+
+function scrollPage() {
+  window.scrollBy({
+  top: 1000,
+  left: 1000,
+  behavior: "smooth",
+});
+}
+
+setTimeout(scrollPage, 10)
+
 window.addEventListener("scroll", () => {
   const border = document.getElementById("door");
   const header = document.querySelector("header");
@@ -44,10 +55,11 @@ window.addEventListener("scroll", () => {
 
   if (window.scrollY <= 300) {
     header.style.filter = "grayscale(100%)";
+    header.style.transition = ".35s";
   }
   else {
+    header.style.transition = ".35s";
     header.style.filter = "grayscale(0%)";
-    header.style.transition = ".10s";
   }
 });
 
